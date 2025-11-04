@@ -28,7 +28,7 @@ export class Student {
   }
 
   get email(): string {
-    return this._email.getValue();
+    return this._email.value;
   }
 
   get age(): number {
