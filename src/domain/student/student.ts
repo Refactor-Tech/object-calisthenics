@@ -1,8 +1,10 @@
 import { Video } from "@/domain/video/video";
 import { Email } from "@/domain/value-objects/email";
 import { WatchedVideos } from "@/domain/student/watched-videos";
+import { Fullname } from "@/domain/value-objects/fullname";
 
 export class Student {
+  private _fullname: Fullname;
   private watchedVideos: WatchedVideos;
 
   constructor(
@@ -17,11 +19,12 @@ export class Student {
     readonly state: string,
     readonly country: string
   ) {
+    this._fullname = new Fullname(firstName, lastName);
     this.watchedVideos = new WatchedVideos();
   }
 
   get fullname(): string {
-    return `${this.firstName} ${this.lastName}`;
+    return this._fullname.value;
   }
 
   get email(): string {
