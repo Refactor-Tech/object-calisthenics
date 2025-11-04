@@ -1,8 +1,9 @@
 import { Video } from "@/domain/video/video";
 import { Email } from "@/domain/value-objects/email";
+import { WatchedVideos } from "@/domain/student/WatchedVideos";
 
 export class Student {
-  private watchedVideos: Map<Video, Date>;
+  private watchedVideos: WatchedVideos;
 
   constructor(
     readonly email: Email,
@@ -16,7 +17,7 @@ export class Student {
     readonly state: string,
     readonly country: string
   ) {
-    this.watchedVideos = new Map<Video, Date>();
+    this.watchedVideos = new WatchedVideos();
   }
 
   getFullName(): string {
@@ -31,22 +32,19 @@ export class Student {
     return this.bd;
   }
 
-  watch(video: any, date: Date): void {
-    this.watchedVideos.set(video, date);
+  watch(video: Video, date: Date): void {
+    this.watchedVideos.add(video, date);
   }
 
   hasAccess(): boolean {
-    if (this.watchedVideos.size === 0) {
+    if (this.watchedVideos.isEmpty()) {
       return true;
     }
     return this.firstVideoWasWatchedInLessThan90Days();
   }
 
   private firstVideoWasWatchedInLessThan90Days(): boolean {
-    const sortedVideos = Array.from(this.watchedVideos.entries()).sort(
-      (a, b) => a[1].getTime() - b[1].getTime()
-    );
-    const firstDate = sortedVideos[0][1];
+    const firstDate = this.watchedVideos.getEarliestDate();
     const today = new Date();
 
     const diffTime = today.getTime() - firstDate.getTime();
