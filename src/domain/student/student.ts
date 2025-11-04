@@ -45,23 +45,22 @@ export class Student {
   }
 
   hasAccess(): boolean {
-    if (this.watchedVideos.size > 0) {
-      const sortedVideos = Array.from(this.watchedVideos.entries()).sort(
-        (a, b) => a[1].getTime() - b[1].getTime()
-      );
-      const firstDate = sortedVideos[0][1];
-      const today = new Date();
-
-      const diffTime = today.getTime() - firstDate.getTime();
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-      if (diffDays >= 90) {
-        return false;
-      } else {
-        return true;
-      }
-    } else {
+    if (this.watchedVideos.size === 0) {
       return true;
     }
+    return this.firstVideoWasWatchedInLessThan90Days();
+  }
+
+  private firstVideoWasWatchedInLessThan90Days(): boolean {
+    const sortedVideos = Array.from(this.watchedVideos.entries()).sort(
+      (a, b) => a[1].getTime() - b[1].getTime()
+    );
+    const firstDate = sortedVideos[0][1];
+    const today = new Date();
+
+    const diffTime = today.getTime() - firstDate.getTime();
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+    return diffDays < 90;
   }
 }
