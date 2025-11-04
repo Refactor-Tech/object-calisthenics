@@ -2,6 +2,7 @@ import { Video } from "@/domain/video/video";
 import { Email } from "@/domain/value-objects/email";
 import { WatchedVideos } from "@/domain/student/watched-videos";
 import { Fullname } from "@/domain/value-objects/fullname";
+import { differenceInDays, differenceInYears } from "date-fns";
 
 export class Student {
   private _fullname: Fullname;
@@ -32,16 +33,7 @@ export class Student {
   }
 
   get age(): number {
-    const today = new Date();
-    let age = today.getFullYear() - this.birthdate.getFullYear();
-    const monthDiff = today.getMonth() - this.birthdate.getMonth();
-    if (
-      monthDiff < 0 ||
-      (monthDiff === 0 && today.getDate() < this.birthdate.getDate())
-    ) {
-      age--;
-    }
-    return age;
+    return differenceInYears(new Date(), this.birthdate);
   }
 
   watch(video: Video, date: Date): void {
@@ -57,11 +49,6 @@ export class Student {
 
   private firstVideoWasWatchedInLessThan90Days(): boolean {
     const firstDate = this.watchedVideos.getEarliestDate();
-    const today = new Date();
-
-    const diffTime = today.getTime() - firstDate.getTime();
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-    return diffDays < 90;
+    return differenceInDays(new Date(), firstDate) < 90;
   }
 }

@@ -1,3 +1,4 @@
+import { min } from "date-fns/min";
 import { Video } from "../video/video";
 
 export class WatchedVideos {
@@ -16,9 +17,6 @@ export class WatchedVideos {
   }
 
   getEarliestDate(): Date {
-    const sortedVideos = Array.from(this.videos.entries()).sort(
-      (a, b) => a[1].getTime() - b[1].getTime()
-    );
-    return sortedVideos[0][1];
+    return min([...this.videos.values()]);
   }
 }
