@@ -69,11 +69,11 @@ describe("domain > Student", () => {
   });
 
   it("should return full name", () => {
-    expect(student.getFullName()).toBe("John Doe");
+    expect(student.fullname).toBe("John Doe");
   });
 
   it("should return email", () => {
-    expect(student.getEmail()).toBe("john.doe@mail.com");
+    expect(student.email).toBe("john.doe@mail.com");
   });
 
   it("should throw error for invalid email", () => {

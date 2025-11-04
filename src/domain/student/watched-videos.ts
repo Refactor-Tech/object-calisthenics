@@ -15,10 +15,6 @@ export class WatchedVideos {
     return this.videos.size;
   }
 
-  isEmpty(): boolean {
-    return this.videos.size === 0;
-  }
-
   getEarliestDate(): Date {
     const sortedVideos = Array.from(this.videos.entries()).sort(
       (a, b) => a[1].getTime() - b[1].getTime()

@@ -1,15 +1,15 @@
 import { Video } from "@/domain/video/video";
 import { Email } from "@/domain/value-objects/email";
-import { WatchedVideos } from "@/domain/student/WatchedVideos";
+import { WatchedVideos } from "@/domain/student/watched-videos";
 
 export class Student {
   private watchedVideos: WatchedVideos;
 
   constructor(
-    readonly email: Email,
-    readonly bd: Date,
-    readonly fName: string,
-    readonly lName: string,
+    readonly _email: Email,
+    readonly birthdate: Date,
+    readonly firstName: string,
+    readonly lastName: string,
     readonly street: string,
     readonly number: string,
     readonly province: string,
@@ -20,16 +20,25 @@ export class Student {
     this.watchedVideos = new WatchedVideos();
   }
 
-  getFullName(): string {
-    return `${this.fName} ${this.lName}`;
+  get fullname(): string {
+    return `${this.firstName} ${this.lastName}`;
   }
 
-  getEmail(): string {
-    return this.email.getValue();
+  get email(): string {
+    return this._email.getValue();
   }
 
-  getBd(): Date {
-    return this.bd;
+  get age(): number {
+    const today = new Date();
+    let age = today.getFullYear() - this.birthdate.getFullYear();
+    const monthDiff = today.getMonth() - this.birthdate.getMonth();
+    if (
+      monthDiff < 0 ||
+      (monthDiff === 0 && today.getDate() < this.birthdate.getDate())
+    ) {
+      age--;
+    }
+    return age;
   }
 
   watch(video: Video, date: Date): void {
@@ -37,7 +46,7 @@ export class Student {
   }
 
   hasAccess(): boolean {
-    if (this.watchedVideos.isEmpty()) {
+    if (this.watchedVideos.size() === 0) {
       return true;
     }
     return this.firstVideoWasWatchedInLessThan90Days();

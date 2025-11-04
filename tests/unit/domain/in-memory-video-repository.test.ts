@@ -2,12 +2,13 @@ import { beforeEach, describe, expect, test } from "vitest";
 import { Student } from "@/domain/student/student";
 import { InMemoryVideoRepository } from "@/domain/video/in-memory-video-repository";
 import { Video } from "@/domain/video/video";
+import { Email } from "@/domain/value-objects/email";
 
 let student: Student;
 
 beforeEach(() => {
   student = new Student(
-    "john.doe@mail.com",
+    new Email("john.doe@mail.com"),
     new Date(2008, 0, 1),
     "John",
     "Doe",

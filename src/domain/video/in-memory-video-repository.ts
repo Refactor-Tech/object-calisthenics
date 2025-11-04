@@ -10,14 +10,9 @@ export class InMemoryVideoRepository implements VideoRepository {
   }
 
   videosFor(student: Student): Video[] {
-    const today = new Date();
+    const studentAge = student.age;
     return this.videos.filter((video) => {
-      const ageLimitDate = new Date(
-        student.getBd().getFullYear() + video.getAgeLimit(),
-        student.getBd().getMonth(),
-        student.getBd().getDate()
-      );
-      return ageLimitDate <= today;
+      return video.getAgeLimit() <= studentAge;
     });
   }
 }
