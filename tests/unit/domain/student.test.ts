@@ -67,17 +67,14 @@ describe("domain > Student", () => {
     expect(student.hasAccess()).toBeFalsy();
   });
 
-  // test full name
   it("should return full name", () => {
     expect(student.getFullName()).toBe("John Doe");
   });
 
-  // test get email
   it("should return email", () => {
     expect(student.getEmail()).toBe("john.doe@mail.com");
   });
 
-  // test email validation
   it("should throw error for invalid email", () => {
     expect(
       () =>
