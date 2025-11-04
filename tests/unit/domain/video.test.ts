@@ -4,11 +4,11 @@ import { Video } from "@/domain/video/video";
 describe("domain > Video", () => {
   test("video starts as private", () => {
     const video = new Video();
-    expect(video.getVisibility()).toBe(video.PRIVATE);
+    expect(video.isPublic()).toBeFalsy();
   });
   test("make a video public", () => {
     const video = new Video();
     video.publish();
-    expect(video.getVisibility()).toBe(video.PUBLIC);
+    expect(video.isPublic()).toBeTruthy();
   });
 });

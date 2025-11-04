@@ -1,16 +1,13 @@
 export class Video {
-  public readonly PUBLIC = 1;
-  public readonly PRIVATE = 2;
-
-  private visibility: number = this.PRIVATE;
+  private isVisible: boolean = false;
   private ageLimit!: number;
 
   publish() {
-    this.visibility = this.PUBLIC;
+    this.isVisible = true;
   }
 
-  getVisibility(): number {
-    return this.visibility;
+  isPublic(): boolean {
+    return this.isVisible;
   }
 
   getAgeLimit(): number {
