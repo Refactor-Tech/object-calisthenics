@@ -41,10 +41,14 @@ export class Student {
   }
 
   hasAccess(): boolean {
-    if (this.watchedVideos.size() === 0) {
+    if (!this.hasWatchedVideos()) {
       return true;
     }
     return this.firstVideoWasWatchedInLessThan90Days();
+  }
+
+  private hasWatchedVideos(): boolean {
+    return this.watchedVideos.size() > 0;
   }
 
   private firstVideoWasWatchedInLessThan90Days(): boolean {
