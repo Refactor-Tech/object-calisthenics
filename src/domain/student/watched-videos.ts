@@ -1,5 +1,5 @@
 import { min } from "date-fns/min";
-import { Video } from "../video/video";
+import { Video } from "@/domain/video/video";
 
 export class WatchedVideos {
   private videos: Map<Video, Date>;
