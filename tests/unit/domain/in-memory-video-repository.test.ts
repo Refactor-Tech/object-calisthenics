@@ -4,24 +4,23 @@ import { InMemoryVideoRepository } from "@/domain/video/in-memory-video-reposito
 import { Video } from "@/domain/video/video";
 import { Email } from "@/domain/value-objects/email";
 
-let student: Student;
-
-beforeEach(() => {
-  student = new Student(
-    new Email("john.doe@mail.com"),
-    new Date(2008, 0, 1),
-    "John",
-    "Doe",
-    "123 Main St",
-    "1A",
-    "Province",
-    "City",
-    "State",
-    "Country"
-  );
-});
-
 describe("domain > InMemoryVideoRepository", () => {
+  let student: Student;
+
+  beforeEach(() => {
+    student = new Student(
+      new Email("john.doe@mail.com"),
+      new Date(2008, 0, 1),
+      "John",
+      "Doe",
+      "123 Main St",
+      "1A",
+      "Province",
+      "City",
+      "State",
+      "Country"
+    );
+  });
   test("student has access within 90 days of first watched video", () => {
     const videoRepository = new InMemoryVideoRepository();
     for (let i = 15; i <= 21; i++) {
