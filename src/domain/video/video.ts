@@ -5,16 +5,12 @@ export class Video {
   private visibility: number = this.PRIVATE;
   private ageLimit!: number;
 
-  getVisibility(): number {
-    return this.visibility;
+  publish() {
+    this.visibility = this.PUBLIC;
   }
 
-  checkIfVisibilityIsValidAndUpdateIt(visibility: number): void {
-    if ([this.PUBLIC, this.PRIVATE].includes(visibility)) {
-      this.visibility = visibility;
-    } else {
-      throw new Error("Invalid visibility value");
-    }
+  getVisibility(): number {
+    return this.visibility;
   }
 
   getAgeLimit(): number {
