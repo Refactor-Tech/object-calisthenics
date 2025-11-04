@@ -1,11 +1,11 @@
 import { Video } from "@/domain/video/video";
+import { Email } from "@/domain/value-objects/email";
 
 export class Student {
-  private email!: string;
   private watchedVideos: Map<Video, Date>;
 
   constructor(
-    email: string,
+    readonly email: Email,
     readonly bd: Date,
     readonly fName: string,
     readonly lName: string,
@@ -16,7 +16,6 @@ export class Student {
     readonly state: string,
     readonly country: string
   ) {
-    this.setEmail(email);
     this.watchedVideos = new Map<Video, Date>();
   }
 
@@ -24,16 +23,8 @@ export class Student {
     return `${this.fName} ${this.lName}`;
   }
 
-  private setEmail(email: string): void {
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    if (!emailRegex.test(email)) {
-      throw new Error("Invalid email format");
-    }
-    this.email = email;
-  }
-
   getEmail(): string {
-    return this.email;
+    return this.email.getValue();
   }
 
   getBd(): Date {

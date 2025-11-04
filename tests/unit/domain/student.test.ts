@@ -1,11 +1,12 @@
 import { Student } from "@/domain/student/student";
+import { Email } from "@/domain/value-objects/email";
 import { beforeEach, describe, it, expect, test } from "vitest";
 
 let student: Student;
 
 beforeEach(() => {
   student = new Student(
-    "john.doe@mail.com",
+    new Email("john.doe@mail.com"),
     new Date(2000, 0, 1),
     "John",
     "Doe",
@@ -79,7 +80,7 @@ describe("domain > Student", () => {
     expect(
       () =>
         new Student(
-          "invalid-email",
+          new Email("invalid-email"),
           new Date(2000, 0, 1),
           "John",
           "Doe",
