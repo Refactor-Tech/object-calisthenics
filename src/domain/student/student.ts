@@ -52,7 +52,7 @@ export class Student {
   }
 
   private firstVideoWasWatchedInLessThan90Days(): boolean {
-    const firstDate = this.watchedVideos.getEarliestDate();
+    const firstDate = this.watchedVideos.earliestDate();
     return differenceInDays(new Date(), firstDate) < 90;
   }
 }

@@ -16,7 +16,7 @@ export class WatchedVideos {
     return this.videos.size;
   }
 
-  getEarliestDate(): Date {
+  earliestDate(): Date {
     return min([...this.videos.values()]);
   }
 }
